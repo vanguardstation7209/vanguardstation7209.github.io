@@ -282,6 +282,7 @@ body {
 .buttonbox {
     width:95%;
     margin: 1vh auto;
+    transition-duration: 2s;
 }
 
 .buttonbox .buttoninfo {

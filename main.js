@@ -21,6 +21,7 @@ var txt = {
     panelBuy: "Solar panel unfolded.",
     panelUpgrade1: "Solar panels aligned for maximum efficiency.",
     miningDroneBuy: "Mining drone activated and deployed.",
+    foundryActive: "The foundry is online and ready for operation.",
     welcome: "Welcome back.",
 }
 
@@ -37,8 +38,8 @@ var inv = {
 
 var invMax = {
     power: 50,
-    ice: 0,
-    rock: 0,
+    ice: 100,
+    rock: 100,
     metal: 0,
 }
 
@@ -109,13 +110,6 @@ var change = {
     rock: 0,
     metal: 0,
 }
-
-// Check whether element should be displayed
-var display = {
-    miningDrone: 0,
-    ice: 0,
-    rock: 0,
-}
 // Check whether intro can be skipped
 var storyPosition = 0;
 
@@ -150,9 +144,13 @@ function miningDroneBuy() {
             inv.power -= cost.miningDrone;
             document.getElementById("miningDroneActive").innerHTML = active.miningDrone;
             feedtext(txt.miningDroneBuy);
-            const collection = document.getElementsByClassName("ice");
-            for (let i=0; i < collection.length; i++) {
-                collection[i].classList.remove("hidden");
+            const collectionIce = document.getElementsByClassName("ice");
+            for (let i=0; i < collectionIce.length; i++) {
+                collectionIce[i].classList.remove("hidden");
+            }
+            const collectionRock = document.getElementsByClassName("rock");
+            for (let i=0; i < collectionRock.length; i++) {
+                collectionRock[i].classList.remove("hidden");
             }
             feedtext(txt.foundryActive);
             break;
@@ -179,6 +177,12 @@ function panelUpgrade() {
             document.getElementById("trayLeftBottom").classList.remove("hidden");
             feedtext(txt.panelUpgrade1);
             break;
+        default:
+            prod.panel = Math.round(prod.panel*1e12 + upgradeChange.panel[upgrade.panel]*1e12)/1e12;
+            inv.power -= cost.panelUpgrade[upgrade.panel];
+            upgrade.panel += 1;
+            document.getElementById("trayLeftBottom").classList.remove("hidden");
+            feedtext(txt.panelUpgrade1);
     }
 }
 //-------------------------
@@ -196,6 +200,9 @@ function powerAuto() {
     if (inv.power + change.power > invMax.power) {
         inv.power = invMax.power;
         document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
+    } else if (inv.power + change.power <= 0) {
+        inv.power = 0;
+        document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
     } else {
         inv.power = Math.round(inv.power*1e12 + change.power*1e12)/1e12;
         document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
@@ -203,8 +210,41 @@ function powerAuto() {
 }
 
 function iceAuto() {
-    gen.ice = Math.round(gen.miningDrone*1e12*prod.miningDroneIce)/1e12;
-    change.ice = Math.round(gen.ice*1e12-usage.ice*1e12)/1e12;
+    change.ice = Math.round(active.miningDrone*prod.miningDroneIce*1e12-usage.ice*1e12)/1e12;
+    if (change.ice >= 0) {
+        document.getElementById("iceChange").innerHTML = "+" + change.ice;
+    } else {
+        document.getElementById("iceChange").innerHTML = change.ice;
+    }
+    if (inv.ice + change.ice > invMax.ice) {
+        inv.ice = invMax.ice;
+        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
+    } else if (inv.ice + change.ice <= 0) {
+        inv.ice = 0;
+        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
+    } else {
+        inv.ice = Math.round(inv.ice*1e12 + change.ice*1e12)/1e12;
+        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
+    }
+}
+
+function rockAuto() {
+    change.rock = Math.round(active.miningDrone*prod.miningDroneRock*1e12-usage.rock*1e12)/1e12;
+    if (change.rock >= 0) {
+        document.getElementById("rockChange").innerHTML = "+" + change.rock;
+    } else {
+        document.getElementById("rockChange").innerHTML = change.rock;
+    }
+    if (inv.rock + change.rock > invMax.rock) {
+        inv.rock = invMax.rock;
+        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
+    } else if (inv.rock + change.rock <= 0) {
+        inv.rock = 0;
+        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
+    } else {
+        inv.rock = Math.round(inv.rock*1e12 + change.rock*1e12)/1e12;
+        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
+    }
 }
 
 //-------------------------
@@ -222,11 +262,11 @@ function buttonEnableDisable() {
     }
     // Upgrade Panels
     if (inv.power < cost.panelUpgrade[upgrade.panel]) {
-        document.getElementById("panelUpgrade").classList.add("disabled");
-        document.getElementById("panelUpgrade").disabled = true;
+        document.getElementById("panelUpgradeButton").classList.add("disabled");
+        document.getElementById("panelUpgradeButton").disabled = true;
     } else {
-        document.getElementById("panelUpgrade").classList.remove("disabled");
-        document.getElementById("panelUpgrade").disabled = false;
+        document.getElementById("panelUpgradeButton").classList.remove("disabled");
+        document.getElementById("panelUpgradeButton").disabled = false;
     }
     // Buy Mining Drones
     if (inv.power >= cost.miningDrone && gen.miningDrone < genMax.miningDrone){
@@ -344,6 +384,8 @@ function introButtonTwo() {
 // Functions to run every half-second
 var SecondLoop = window.setInterval(function() {
     powerAuto();
+    iceAuto();
+    rockAuto();
 }, 1000)
 
 // Functions to run every tenth of a second
@@ -358,6 +400,7 @@ var saveGameLoop = window.setInterval(function() {
     localStorage.setItem("genSave", JSON.stringify(gen));
     localStorage.setItem("invMaxSave", JSON.stringify(invMax));
     localStorage.setItem("upgrade", JSON.stringify(upgrade));
+    localStorage.setItem("active", JSON.stringify(active));
 }, 15000)
 //-------------------------
 // Misc Functions
@@ -417,6 +460,11 @@ function load() {
         upgrade = upgradeTemp;
     }
 
+    var activeTemp = JSON.parse(localStorage.getItem("active"));
+    if (activeTemp !== null) {
+        active = activeTemp;
+    }
+
     // Determine whether panels and buttons are visible
     if (gen.panel >= 5) {
         document.getElementById("panelUpgrade").classList.remove("hidden");
@@ -425,9 +473,13 @@ function load() {
         document.getElementById("trayLeftBottom").classList.remove("hidden");
     }
     if (gen.miningDrone >> 0) {
-        const collection = document.getElementsByClassName("ice");
-        for (let i=0; i < collection.length; i++) {
-            collection[i].classList.remove("hidden");
+        const collectionIce = document.getElementsByClassName("ice");
+        for (let i=0; i < collectionIce.length; i++) {
+            collectionIce[i].classList.remove("hidden");
+        }
+        const collectionRock = document.getElementsByClassName("rock");
+        for (let i=0; i < collectionRock.length; i++) {
+            collectionRock[i].classList.remove("hidden");
         }
     }
 

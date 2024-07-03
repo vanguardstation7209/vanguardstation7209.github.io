@@ -16,7 +16,7 @@
                 <div class="invleft">
                     <p id="energyLabel">Energy</p>
                     <p id="iceLabel" class="ice label hidden">Ice</p>
-                    <p id="rockLabel" class="label hidden">Rock</p>
+                    <p id="rockLabel" class="rock label hidden">Rock</p>
                     <p id="metalLabel" class="label hidden">Metal</p>
                 </div>
                 <div class="invright">
@@ -27,8 +27,8 @@
                     <p id="iceInv" class="ice quantity hidden">0/100 <img src="images/iceIcon.png"></p>
                     <p id="iceChange" class="ice quantityChange hidden">+0</p>
                     <!--Rock-->
-                    <p id="rockInv" class="quantity hidden">0/100 <img src="images/rockIcon.png"></p>
-                    <p id="rockChange" class="quantityChange hidden">+0</p>
+                    <p id="rockInv" class="rock quantity hidden">0/100 <img src="images/rockIcon.png"></p>
+                    <p id="rockChange" class="rock quantityChange hidden">+0</p>
                     <!--Metal-->
                     <p id="metalInv" class="quantity hidden">0/100 <img src="images/metalIcon.png"></p>
                     <p id="metalChange" class="quantityChange hidden">+0</p>
@@ -56,10 +56,10 @@
                         <p class="trayTitle">SOLAR PANELS</p>
                         <div class="buttonbox">
                             <button onclick="panelBuy()" class="button disabled" id="panelBuy">Unfold Panel</button>
-                            <div class="buttoninfo">Unfold a panel to increase the rate of light absorption. Cost: 10 <img src="images/powerIcon.png"></div>
+                            <div class="buttoninfo">Unfold a solar panel to increase the rate of light absorption. Cost: 10 <img src="images/powerIcon.png"></div>
                         </div>
-                        <div class="buttonbox">
-                            <button onclick="panelUpgrade()" class="button disabled hidden" id="panelUpgrade">Align Panels</button>
+                        <div class="buttonbox hidden" id="panelUpgrade">
+                            <button onclick="panelUpgrade()" class="button disabled" id="panelUpgradeButton">Align Panels</button>
                             <div class="buttoninfo">Align solar panels to optimise the absorption of light. Cost: 100 <img src="images/powerIcon.png"></div>
                         </div>
                     </div>
