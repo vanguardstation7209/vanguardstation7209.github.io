@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="stylesheet.css">
+    </head>
+    <body onload="load()">
+        <div class="sidebar">
+            <div class="title hidden" id="title">
+                <div>
+                    <p class="titletext">VANGUARD STATION 7209</p>
+                    <p class="subtitletext">STATION AI NO. 2556-5139</p>
+                </div>
+            </div>
+            <div class="inv hidden" id="inv">
+                <div class="invleft">
+                    <p id="energyLabel">Energy</p>
+                    <p id="iceLabel" class="ice label hidden">Ice</p>
+                    <p id="rockLabel" class="label hidden">Rock</p>
+                    <p id="metalLabel" class="label hidden">Metal</p>
+                </div>
+                <div class="invright">
+                    <!--Power-->
+                    <p id="powerInv" class="quantity">0/50 <img src="images/powerIcon.png"></p>
+                    <p id="powerChange" class="quantityChange">+0</p>
+                    <!--Ice-->
+                    <p id="iceInv" class="ice quantity hidden">0/100 <img src="images/iceIcon.png"></p>
+                    <p id="iceChange" class="ice quantityChange hidden">+0</p>
+                    <!--Rock-->
+                    <p id="rockInv" class="quantity hidden">0/100 <img src="images/rockIcon.png"></p>
+                    <p id="rockChange" class="quantityChange hidden">+0</p>
+                    <!--Metal-->
+                    <p id="metalInv" class="quantity hidden">0/100 <img src="images/metalIcon.png"></p>
+                    <p id="metalChange" class="quantityChange hidden">+0</p>
+                </div>
+                <div class="buttonbox">
+                    <button onclick="reset()" class="button">Reset</button>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="feed hidden" id="feed">
+                <div class="feedtext">
+                    <p id="feed7" style="margin:0; margin-left: 1vh; margin-top: 1vh; font-size:0.8vw; color:#404040"></p>
+                    <p id="feed6" style="margin:0; margin-left: 1vh; font-size:0.8vw; color:#606060"></p>
+                    <p id="feed5" style="margin:0; margin-left: 1vh; font-size:0.8vw; color:#808080"></p>
+                    <p id="feed4" style="margin:0; margin-left: 1vh; font-size:0.8vw; color:#a0a0a0"></p>
+                    <p id="feed3" style="margin:0; margin-left: 1vh; font-size:0.8vw; color:#c0c0c0"></p>
+                    <p id="feed2" style="margin:0; margin-left: 1vh; font-size:0.8vw; color:#e0e0e0"></p>
+                    <p id="feed1" style="margin:0; margin-left: 1vh; font-size:0.8vw"></p>
+                </div>
+            </div>
+            <div class="tray hidden" id="tray">
+                <div class="trayLeft" id="trayLeft">
+                    <div class="trayLeftTop" id="trayLeftTop">
+                        <p class="trayTitle">SOLAR PANELS</p>
+                        <div class="buttonbox">
+                            <button onclick="panelBuy()" class="button disabled" id="panelBuy">Unfold Panel</button>
+                            <div class="buttoninfo">Unfold a panel to increase the rate of light absorption. Cost: 10 <img src="images/powerIcon.png"></div>
+                        </div>
+                        <div class="buttonbox">
+                            <button onclick="panelUpgrade()" class="button disabled hidden" id="panelUpgrade">Align Panels</button>
+                            <div class="buttoninfo">Align solar panels to optimise the absorption of light. Cost: 100 <img src="images/powerIcon.png"></div>
+                        </div>
+                    </div>
+                    <div class="trayLeftBottom hidden" id="trayLeftBottom">
+                        <p class="trayTitle">MINING DRONES</p>
+                        <div class="buttonbox">
+                            <button onclick="miningDroneBuy()" class="button disabled" id="miningDroneBuy">Activate Mining Drone</button>
+                            <div class="buttoninfo">Release Mole Drone to begin the mining of asteroids. Cost: 500 <img src="images/powerIcon.png"></div>
+                        </div>
+                        <div style="width:95%; margin: 0 auto;">
+                            <p id="miningDronePlusMinus" style="font-size: 1.1vw; position: inline; float:left">Drones</p>
+                            <button onclick="miningDronePlus()" class="buttonPlusMinus disabled" id="miningDronePlus">+</button>
+                            <p id="miningDroneActive" style="font-size: 1.1vw; margin: 1vw; position: relative; float: right">0</p>
+                            <button onclick="miningDroneMinus()" class="buttonPlusMinus disabled" id="miningDroneMinus">-</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="trayCentreLeft" id="trayCentreLeft">
+                    <div class="trayCentreLeftTop hidden" id="trayCentreLeftTop">
+                        <p>FOUNDRY</p>
+                    </div>
+                    <div class="trayCentreLeftBottom hidden" id="trayCentreLeftBottom">
+                        <p>CLB</p>
+                    </div>
+                </div>
+                <div class="trayCentreRight" id="trayCentreRight">
+                    <div class="trayCentreRightTop hidden" id="trayCentreRightTop">
+                        <p>CRT</p>
+                    </div>
+                    <div class="trayCentreRightBottom hidden" id="trayCentreRightBottom">
+                        <p>CRB</p>
+                    </div>
+                </div>
+                <div class="trayRight" id="trayRight">
+                    <div class="trayRightTop hidden" id="trayRightTop">
+                        <p>RT</p>
+                    </div>
+                    <div class="trayRightBottom hidden" id="trayRightBottom">
+                        <p>RB</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="story" id="storyIntro">
+            <p id="story"></p>
+            <button onclick="introButtonOne()" class="buttonStory hidden" id="introButton" disabled=true>Generate Power</button>
+            <p id="storyPower" class="storywatts hidden"></p>
+        </div>
+        <script src="main.js" charset="utf-8" type="text/javascript"></script>
+    </body>
+</html>

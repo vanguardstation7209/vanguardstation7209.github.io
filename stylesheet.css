@@ -1,0 +1,391 @@
+@font-face {
+    font-family: 'jura';
+    src: url('jura-variablefont_wght-webfont.woff2') format('woff2'),
+         url('jura-variablefont_wght-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+img {
+    height:0.7em;
+    width:audo;
+}
+
+html {
+    height: 100%;
+    overflow: hidden;
+    font-family: 'jura';
+    color: white;
+}
+
+body {
+    height: 100%;
+    margin: 0.4vw 0.5vw;
+    background-color: black;
+}
+
+.sidebar {
+    height: 100%;
+    width: 19%;
+    float: left;
+}
+
+.title {
+    width: 100%;
+    height: 15%;
+    margin: auto;
+    outline: 1px solid white;
+    text-align: center;
+    position: relative;
+    transition-duration: 3s;
+}
+
+.titletext {
+    font-weight: bold;
+    font-size: 1.4vw;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%)
+}
+
+.subtitletext {
+    font-size: 1.05vw;
+    position: absolute;
+    width: 100%;
+    margin: 0;
+    left: 50%;
+    top: 55%;
+    transform: translate(-50%, -50%)
+}
+
+.main {
+    width: 80%;
+    height: 100%;
+    float: right;
+    font-weight: bold;
+}
+
+.feed {
+    width: 100%;
+    height: 15%;
+    outline:1px solid white;
+    text-align: left;
+    display: flex;
+    transition-duration: 7s;
+}
+
+.feedtext {
+    width: 100%;
+    height: 100%;
+    text-align: left;
+    display: inline-block;
+    position:absolute;
+    transition-duration: 7s;
+}
+
+.inv {
+    width: 100%;
+    margin-top: 2vh;
+    height: 81%;
+    outline: 1px solid white;
+    position: relative;
+    float: bottom;
+    transition-duration: 5s;
+}
+
+.invleft {
+    float: left;
+    margin: 0 0.4vh;
+    line-height: 1.7;
+    font-size: 1.1vw;
+    font-weight: bold;
+}
+
+.invright {
+    float: right;
+    margin: 0vw 0.4vw;
+    line-height: 1.0;
+    font-size: 1.1vw;
+    text-align:right;
+}
+
+.label {
+    transition-duration: 2s;
+}
+
+.quantity {
+    margin-bottom:0;
+    transition-duration: 3s;
+}
+
+.quantityChange {
+    font-size: 0.8vw;
+    margin: 0px;
+    transition-duration: 4s;
+}
+
+.tray {
+    width: 100%;
+    margin-top: 2vh;
+    height: 81%;
+    position: relative;
+    float: bottom;
+    transition-duration: 9s;
+}
+
+.trayTitle {
+    font-weight:bold;
+    font-size: 1.5vw;
+    margin: 1vh auto;
+    position: block;
+}
+
+.trayLeft {
+    width: 24%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    float: left;
+    position: relative;
+    text-align: center;
+}
+
+.trayLeftTop {
+    height: 49%;
+    width: 100%;
+    float: top;
+    margin-bottom: 2%;
+    position: absolute;
+    outline: 1px solid white;
+}
+
+.trayLeftBottom {
+    height: 49%;
+    width: 100%;
+    float: bottom;
+    position: absolute;
+    bottom: 0;
+    outline: 1px solid white;
+    transition-duration: 3s;
+}
+
+.trayCentreLeft {
+    width: 24%;
+    height: 100%;
+    float: left;
+    margin: 0 1.33333%;
+    position: relative;
+}
+
+.trayCentreLeftTop {
+    height: 49%;
+    width: 100%;
+    float: top;
+    margin-bottom: 2%;
+    position: absolute;
+    outline: 1px solid white;
+}
+
+.trayCentreLeftBottom {
+    height: 49%;
+    width: 100%;
+    float: bottom;
+    position: absolute;
+    bottom: 0;
+    outline: 1px solid white;
+}
+
+.trayCentreRight {
+    width: 24%;
+    height: 100%;
+    float: left;
+    margin: 0 1.33333% 0 0;
+    position: relative;
+}
+
+.trayCentreRightTop {
+    height: 49%;
+    width: 100%;
+    float: top;
+    margin-bottom: 2%;
+    position: absolute;
+    outline: 1px solid white;
+}
+
+.trayCentreRightBottom {
+    height: 49%;
+    width: 100%;
+    float: bottom;
+    position: absolute;
+    bottom: 0;
+    outline: 1px solid white;
+}
+
+.trayRight {
+    width: 24%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    float: right;
+    position: relative;
+}
+
+.trayRightTop {
+    height: 49%;
+    width: 100%;
+    float: top;
+    margin-bottom: 2%;
+    position: absolute;
+    outline: 1px solid white;
+}
+
+.trayRightBottom {
+    height: 49%;
+    width: 100%;
+    float: bottom;
+    position: absolute;
+    bottom: 0;
+    outline: 1px solid white;
+}
+
+.button {
+    font-family: 'jura';
+    font-size: 1.1vw;
+    color: white;
+    background-color: black;
+    border-color: white;
+    border: 1px;
+    border-style: solid;
+    overflow: visible;
+    width: 100%;
+    height: 3vw;
+    transition-duration: 0.75s;
+    margin: 1vh auto;
+    margin-bottom:0px;
+    display: block;
+    position: relative;
+}
+
+.button:hover {
+    color: black;
+    border-color: white;
+    border-style: solid;
+    padding: 0px;
+    background-color: white;
+    transition-duration: 0.75s;
+}
+
+.buttonbox {
+    width:95%;
+    margin: 1vh auto;
+}
+
+.buttonbox .buttoninfo {
+    visibility: hidden;
+    position:sticky;
+    color:white;
+    width:auto;
+    font-size: 1vw;
+    font-weight:normal;
+    overflow-wrap:break-word;
+    background-color:black;
+    padding-left:1%;
+    text-align:left;
+    border: 1px;
+    margin:auto;
+    margin-top:-1px;
+    border-color: white;
+    border-style: solid;
+    transition-duration: 0.2s;
+    height: 0px;
+    opacity: 0;
+    z-index: 1;
+}
+.buttonbox:hover .buttoninfo {
+    height:5vh;
+    opacity: 1;
+    visibility: visible;
+}
+
+.buttonStory {
+    font-family: 'jura';
+    font-size: 1.1vw;
+    color: white;
+    background-color: black;
+    border-color: white;
+    border: 1px;
+    border-style: solid;
+    overflow: visible;
+    width: 10vw;
+    height: 3vw;
+    transition-duration: 0.75s;
+    margin: auto;
+    display: block;
+    position: relative;
+}
+
+.buttonStory:hover {
+    color: black;
+    border-color: white;
+    border: 1px;
+    border-style: solid;
+    padding: 0px;
+    background-color: white;
+    transition-duration: 0.75s;
+}
+
+.buttonPlusMinus {
+    font-family: 'jura';
+    font-size: 1.1vw;
+    font-weight: bold;
+    color: white;
+    background-color: black;
+    border-color: white;
+    border: 1px;
+    border-style: solid;
+    overflow: visible;
+    width: 3vw;
+    height: 3vw;
+    transition-duration: 0.75s;
+    display: inline;
+    float: right;
+}
+
+.buttonPlusMinus:hover {
+    color: black;
+    border-color: white;
+    border: 1px;
+    border-style: solid;
+    padding: 0px;
+    background-color: white;
+    transition-duration: 0.75s;
+}
+
+.disabled {
+    opacity: 0.25;
+}
+
+.hidden {
+    opacity: 0;
+    transition-duration: 1s;
+}
+
+.story {
+    font-size: 1.1vw;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    position: absolute;
+    margin: 0;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.storywatts {
+    transition-duration: 1.25s;
+}
