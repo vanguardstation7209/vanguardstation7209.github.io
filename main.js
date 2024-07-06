@@ -2,6 +2,8 @@
 // Defining Variables
 //-------------------------
 
+var costMultiplier = 1.15;
+
 // Variables for Typewriter Function
 var typewriter = {
     i: 0,
@@ -23,6 +25,7 @@ var txt = {
     miningDroneBuy: "Mining drone activated and deployed.",
     foundryActive: "The foundry is online and ready for operation.",
     welcome: "Welcome back.",
+    panelBuyDesc: "Unfold a solar panel to increase the rate of light absorption. Cost: ",
 }
 
 // How much do I have of a resource?
@@ -31,16 +34,20 @@ var inv = {
     power: 0,
     ice: 0,
     rock: 0,
-    metal: 0,
+    iron: 0,
+    copper: 0,
+    silicon: 0,
 }
 
 // What is the maximum quantity of a resource?
 
 var invMax = {
     power: 50,
-    ice: 100,
+    ice: 50,
     rock: 100,
-    metal: 0,
+    iron: 0,
+    copper: 0,
+    silicon: 0,
 }
 
 // What is the storage increase?
@@ -50,6 +57,8 @@ var invStore = {
     ice: 0,
     rock: 0,
     metal: 0,
+    copper: 0,
+    silicon: 0,
 }
 
 // How many times have I upgraded a generator?
@@ -69,7 +78,7 @@ var upgradeChange = {
 var cost = {
     panel: 10,
     panelUpgrade: [100, 500, 5000],
-    miningDrone: 500,
+    miningDrone: 250,
 }
 
 // How many generators do I have?
@@ -100,7 +109,9 @@ var usage = {
     power: 0,
     ice: 0,
     rock: 0,
-    metal: 0,
+    iron: 0,
+    copper: 0,
+    silicon: 0,
 }
 
 // What is the overall change for the resource?
@@ -108,7 +119,9 @@ var change = {
     power: 0,
     ice: 0,
     rock: 0,
-    metal: 0,
+    iron: 0,
+    copper: 0,
+    silicon: 0,
 }
 // Check whether intro can be skipped
 var storyPosition = 0;
@@ -124,6 +137,8 @@ function panelBuy() {
             invMax.power = gen.panel * invStore.power;
             storyPosition += 1;
             inv.power -= cost.panel;
+            cost.panel = Math.round((cost.panel*1e12*costMultiplier)/1e12);
+            document.getElementById("panelBuyDesc").innerHTML = txt.panelBuyDesc + cost.panel + " <img src='images/powerIcon.png'>";
             document.getElementById("panelUpgrade").classList.remove("hidden");
             feedtext(txt.panelBuy);
             break;
@@ -131,6 +146,8 @@ function panelBuy() {
             gen.panel += 1;
             invMax.power += invStore.power;
             inv.power -= cost.panel;
+            cost.panel = Math.round((cost.panel*1e12*costMultiplier)/1e12);
+            document.getElementById("panelBuyDesc").innerHTML = txt.panelBuyDesc + cost.panel + " <img src='images/powerIcon.png'>";
             feedtext(txt.panelBuy);
             break;
     }
@@ -152,6 +169,7 @@ function miningDroneBuy() {
             for (let i=0; i < collectionRock.length; i++) {
                 collectionRock[i].classList.remove("hidden");
             }
+            document.getElementById("trayCentreLeftTop").classList.remove("hidden");
             feedtext(txt.foundryActive);
             break;
         default:
@@ -369,6 +387,8 @@ function introButtonTwo() {
     document.getElementById("storyPower").innerHTML = inv.power + "  <img src='images/powerIcon.png'  height='15' width='15'>";
     document.getElementById("introButton").disabled = true;
     document.getElementById("story").innerHTML = "";
+    cost.panel = Math.round((cost.panel*1e12*costMultiplier)/1e12);
+    document.getElementById("panelBuyDesc").innerHTML = txt.panelBuyDesc + cost.panel + " <img src='images/powerIcon.png'>";
     typeWriter(txt.seven, "story");
     setTimeout(function(){document.getElementById("story").innerHTML = ""; typewriter.i = 0; typeWriter(txt.eight, "story")},3500);
     setTimeout(function(){document.getElementById("story").innerHTML = ""; typewriter.i = 0; typeWriter(txt.two, "story")}, 7500);
@@ -417,9 +437,9 @@ function feedtext(text) {
 // Provides typewriter effect with string as parameter one, and target id as parameter two
 function typeWriter(text, target) {
     if (typewriter.i < text.length) {
-      document.getElementById(target).innerHTML += text.charAt(typewriter.i);
-      typewriter.i++;
-      setTimeout(function(){typeWriter(text, target)}, typewriter.speed);
+        document.getElementById(target).innerHTML += text.charAt(typewriter.i);
+        typewriter.i++;
+        setTimeout(function(){typeWriter(text, target)}, typewriter.speed);
     }
 }
 
@@ -473,6 +493,7 @@ function load() {
         document.getElementById("trayLeftBottom").classList.remove("hidden");
     }
     if (gen.miningDrone >> 0) {
+        document.getElementById("trayCentreLeftTop").classList.remove("hidden");
         const collectionIce = document.getElementsByClassName("ice");
         for (let i=0; i < collectionIce.length; i++) {
             collectionIce[i].classList.remove("hidden");
