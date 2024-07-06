@@ -421,6 +421,7 @@ var saveGameLoop = window.setInterval(function() {
     localStorage.setItem("invMaxSave", JSON.stringify(invMax));
     localStorage.setItem("upgrade", JSON.stringify(upgrade));
     localStorage.setItem("active", JSON.stringify(active));
+    localStorage.setItem("cost", JSON.stringify(cost));
 }, 15000)
 //-------------------------
 // Misc Functions
@@ -483,6 +484,13 @@ function load() {
     var activeTemp = JSON.parse(localStorage.getItem("active"));
     if (activeTemp !== null) {
         active = activeTemp;
+        document.getElementById("miningDroneActive").innerHTML = active.miningDrone;
+    }
+
+    var costTemp = JSON.parse(localStorage.getItem("cost"));
+    if (costTemp !== null) {
+        cost = costTemp;
+        document.getElementById("panelBuyDesc").innerHTML = txt.panelBuyDesc + cost.panel + " <img src='images/powerIcon.png'>";
     }
 
     // Determine whether panels and buttons are visible
@@ -503,7 +511,6 @@ function load() {
             collectionRock[i].classList.remove("hidden");
         }
     }
-
 
     // Run intro if needed
     switch (storyPosition) {

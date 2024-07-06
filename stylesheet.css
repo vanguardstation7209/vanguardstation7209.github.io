@@ -189,6 +189,7 @@ body {
     margin-bottom: 2%;
     position: absolute;
     outline: 1px solid white;
+    transition-duration: 3s;
 }
 
 .trayCentreLeftBottom {
