@@ -56,7 +56,7 @@ var invStore = {
     power: 50,
     ice: 0,
     rock: 0,
-    metal: 0,
+    iron: 0,
     copper: 0,
     silicon: 0,
 }
@@ -71,7 +71,7 @@ var upgrade = {
 // How much does the upgrade change the amount generated?
 
 var upgradeChange = {
-    panel: [0.5, 1],
+    panel: [0, 0.5, 1.5],
 }
 
 // How much does the generator cost?
@@ -189,14 +189,12 @@ function miningDroneBuy() {
 function panelUpgrade() {
     switch (upgrade.panel) {
         case 0:
-            prod.panel = Math.round(prod.panel*1e12 + upgradeChange.panel[upgrade.panel]*1e12)/1e12;
             inv.power -= cost.panelUpgrade[upgrade.panel];
             upgrade.panel += 1;
             document.getElementById("trayLeftBottom").classList.remove("hidden");
             feedtext(txt.panelUpgrade1);
             break;
         default:
-            prod.panel = Math.round(prod.panel*1e12 + upgradeChange.panel[upgrade.panel]*1e12)/1e12;
             inv.power -= cost.panelUpgrade[upgrade.panel];
             upgrade.panel += 1;
             document.getElementById("trayLeftBottom").classList.remove("hidden");
@@ -209,22 +207,14 @@ function panelUpgrade() {
 
 function powerAuto() {
     usage.power = Math.round(active.miningDrone*1e12*2.5)/1e12;
-    change.power = Math.round(gen.panel*1e12*prod.panel - usage.power*1e12)/1e12;
+    change.power = Math.round(gen.panel*1e12*(prod.panel + upgradeChange.panel[upgrade.panel]) - usage.power*1e12)/1e12;
     if (change.power >= 0) {
         document.getElementById("powerChange").innerHTML = "+" + change.power;
     } else {
         document.getElementById("powerChange").innerHTML = change.power;
     }
-    if (inv.power + change.power > invMax.power) {
-        inv.power = invMax.power;
-        document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
-    } else if (inv.power + change.power <= 0) {
-        inv.power = 0;
-        document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
-    } else {
-        inv.power = Math.round(inv.power*1e12 + change.power*1e12)/1e12;
-        document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>";
-    }
+    inv.power = Math.max(0, Math.min(invMax.power, Math.round((inv.power*1e12 + change.power*1e12))/1e12));
+    document.getElementById("powerInv").innerHTML = inv.power  + "/" + invMax.power + "  <img src='images/powerIcon.png'>"
 }
 
 function iceAuto() {
@@ -234,16 +224,8 @@ function iceAuto() {
     } else {
         document.getElementById("iceChange").innerHTML = change.ice;
     }
-    if (inv.ice + change.ice > invMax.ice) {
-        inv.ice = invMax.ice;
-        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
-    } else if (inv.ice + change.ice <= 0) {
-        inv.ice = 0;
-        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
-    } else {
-        inv.ice = Math.round(inv.ice*1e12 + change.ice*1e12)/1e12;
-        document.getElementById("iceInv").innerHTML = inv.ice  + "/" + invMax.ice + "  <img src='images/iceIcon.png'>";
-    }
+    inv.ice = Math.max(0, Math.min(invMax.ice, Math.round((inv.ice*1e12 + change.ice*1e12))/1e12));
+    document.getElementById("iceInv").innerHTML = inv.ice + "/" + invMax.ice + " <img src='images/iceIcon.png'>"
 }
 
 function rockAuto() {
@@ -253,16 +235,8 @@ function rockAuto() {
     } else {
         document.getElementById("rockChange").innerHTML = change.rock;
     }
-    if (inv.rock + change.rock > invMax.rock) {
-        inv.rock = invMax.rock;
-        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
-    } else if (inv.rock + change.rock <= 0) {
-        inv.rock = 0;
-        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
-    } else {
-        inv.rock = Math.round(inv.rock*1e12 + change.rock*1e12)/1e12;
-        document.getElementById("rockInv").innerHTML = inv.rock  + "/" + invMax.rock + "  <img src='images/rockIcon.png'>";
-    }
+    inv.rock = Math.max(0, Math.min(invMax.rock, Math.round((inv.rock*1e12 + change.rock*1e12))/1e12));
+    document.getElementById("rockInv").innerHTML = inv.rock + "/" + invMax.rock + " <img src='images/rockIcon.png'>"
 }
 
 //-------------------------
